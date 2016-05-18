@@ -13,6 +13,5 @@ angular.module('sportsStore')
         }
         $scope.remove = function (id) {
             cart.removeProduct(id);
-            $scope.cartData = cart.getProducts();
         }
     })
