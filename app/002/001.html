@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+</head>
+<body ng-controller="firstController">
+<div class="page-header">
+    <h1>{{model.user}} To Do List
+         <span class="label label-default" ng-hide="incompleteCount()==0" ng-class="warningLevel()">
+            {{incompleteCount()}}
+        </span>
+    </h1>
+</div>
+<div class="panel">
+    <div class="input-group">
+        <input class="form-control" ng-model="actionText"/>
+        <span class="input-group-btn">
+            <button class="btn btn-default" ng-click="addNewItem(actionText)">Add</button>
+        </span>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Description</th>
+            <th>Done</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr ng-repeat="item in model.items |checkedItems:showComplete |orderBy:'action'">
+            <td>{{item.action}}</td>
+            <td><input type="checkbox" ng-model="item.done"></td>
+            <td>{{item.done}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="checkbox-inline">
+        <label><input type="checkbox" ng-model="showComplete">show Complete</label>
+    </div>
+</div>
+<script type="text/javascript">
+    var model = {
+        user: 'Adam'
+    };
+    var app = angular.module("app", []);
+    app.run(function ($http) {
+
+
+        /* $http.get("../../json/todo.json").success(function (data){
+         model.items = data;
+         });*/
+    });
+    app.controller("firstController", ['$scope','$http', function firstController($scope,$http) {
+        $scope.model = model;
+        $http.get("../../json/todo.json").success(function (data){
+            var str=angular.toJson(data);
+            console.log(str)
+            model.items = angular.fromJson(str);
+        })
+/*        $http.get("../../json/todo.json").then(function (response) {
+
+            $scope.model.items = response.data;
+        }, function () {
+            $scope.model = [{action: "error"}];
+        }).then(function () {
+            console.log($scope.model.items)
+            $scope.model.items.push({action: 'Request Complete'})
+        });*/
+        $scope.incompleteCount = function () {
+            var count = 0;
+            angular.forEach($scope.model.items, function (item) {
+                if (!item.done) {
+                    count++
+                }
+            });
+            return count;
+        }
+        $scope.warningLevel = function () {
+            return $scope.incompleteCount() < 3 ? "label-success" : "label-warning";
+        }
+        $scope.addNewItem = function (actionText) {
+            $scope.model.items.push({"action": actionText, "done": false});
+        }
+    }]);
+    app.filter('checkedItems', function () {
+        return function (items, showComplete) {
+            var resultArr = [];
+            angular.forEach(items, function (item) {
+                if (item.done == false || showComplete == true) {
+                    resultArr.push(item);
+                }
+            });
+            return resultArr;
+        }
+    })
+</script>
+</body>
+</html>
