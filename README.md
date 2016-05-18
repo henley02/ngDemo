@@ -1,2 +1,0 @@
-# ngDemo
-ng-demo
