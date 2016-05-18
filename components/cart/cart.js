@@ -21,7 +21,7 @@ angular.module('sportsStore')
             removeProduct: function (id) {
                 for (var i = 0; i < cartData.length; i++) {
                     if (cartData[i].id == id) {
-                        cartData.slice(i, 1);
+                        cartData.splice(i, 1);
                         break;
                     }
                 }
