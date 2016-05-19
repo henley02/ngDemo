@@ -2,14 +2,14 @@
  * Created by henleyhuan on 2016/5/19.
  */
 angular.module('sportsStoreAdmin')
-    .constant('productUrl', "http:location:5500/products/")
+    .constant('productUrl', "http://localhost:5500/products/")
     .config(function ($httpProvider) {
         $httpProvider.defaults.widthCredentials = true;
     })
     .controller('productCtrl', function ($scope, $resource, productUrl) {
         $scope.productsResource = $resource(productUrl + ":id", {id: "@id"});
 
-        $scope.productList = function () {
+        $scope.listProducts = function () {
             $scope.products = $scope.productsResource.query();
         }
 

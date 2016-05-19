@@ -18,5 +18,5 @@ var connect = require('connect'),
 
 var app = connect();
 
-app.use(serveStatic("../github"));
+app.use(serveStatic("../ngDemo"));
 app.listen(5000);
