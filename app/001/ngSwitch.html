@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../../angular.min.js"></script>
+    <title></title>
+    <style>
+        .red {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div ng-app='myApp'>
+    <div ng-controller='myCtrl'>
+        <select ng-model='selection' ng-options='item for item in items'>
+        </select>
+        <tt>selection={{selection}}</tt>
+        <hr/>
+        <div ng-switch on='selection'>
+            <div ng-switch-when='settings'>Settings Div</div>
+            <div ng-switch-when='home'>Home Span</div>
+            <div ng-switch-default>default</div>
+        </div>
+    </div>
+</div>
+<script>
+    angular.module('myApp', [])
+            .controller('myCtrl', ['$scope', function ($scope) {
+                $scope.items = ['settings', 'home', 'other'];
+                $scope.selection = $scope.items[0];
+            }]);
+</script>
+</body>
+</html>

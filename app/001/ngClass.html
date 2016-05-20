@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../../angular.min.js"></script>
+    <title></title>
+    <style>
+        .red {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div ng-app="myApp">
+    <div ng-controller="myCtrl">
+        <input type="text" ng-model="typedName" placeholder="type your name">
+
+        <div ng-repeat="item in data" ng-class="{red:typedName && item.name.startsWith(typedName)}">
+            <span ng-bind="item.name"></span>
+        </div>
+    </div>
+</div>
+<script>
+    var data = [
+        {id: 1, name: '张三', age: 11, gender: 0},
+        {id: 2, name: '李四', age: 12, gender: 0},
+        {id: 3, name: '李丽', age: 13, gender: 1},
+        {id: 4, name: '周明', age: 14, gender: 0},
+        {id: 5, name: '周玥', age: 23, gender: 1},
+        {id: 6, name: 'johnny', age: 24, gender: 0}
+    ];
+    angular.module('myApp', [])
+            .controller('myCtrl', ['$scope', function ($scope) {
+                $scope.typedName = '';
+                $scope.data = data;
+            }]);
+</script>
+</body>
+</html>

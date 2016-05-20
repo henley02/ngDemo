@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../../angular.min.js"></script>
+</head>
+<body>
+<div ng-app='myApp'>
+    <div ng-controller='myCtrl'>
+        <ul>
+            <!--因为ng-repeat不能遍历重复项，为了避免程序报错，我们加上 track by $index 可以在内部维护一个$index，就不会因为内容重复而报错。-->
+            <li ng-repeat='item in messages track by $index' ng-bind='item'></li>
+        </ul>
+    </div>
+</div>
+<script>
+    angular.module('myApp', [])
+            .controller('myCtrl', ['$scope', function ($scope) {
+                $scope.messages = ['今天下班后别走', '中国队加油', '今夜又失眠了', '中国队加油'];
+            }]);
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../../angular.min.js"></script>
+</head>
+<body ng-app='myApp'>
+<div ng-controller="myCtrl">
+    <div>{{['Ari','Lerner','Likes','To','Eat','Pizza']|filter:'e'}}</div>
+    <div>{{[{'name':'Ari','City':'San Francisco','favorite food':'pizza'},
+        {'name':'Nate','City':'San Francisco','favorite food':'indian food'}]|filter:{'favorite food':'Pizza'} }}
+    </div>
+    <div>{{['Ari','likes','to','travel'] |filter : isCapitalized }}</div>
+    <div>{{"123213213213213"|number}}</div>
+    <div>{{"123213213213213.158"|number:2}}</div>
+</div>
+<script>
+    angular.module('myApp', []).controller('myCtrl', function ($scope) {
+        $scope.isCapitalized = function (str) {
+            return str[0] == str[0].toUpperCase();
+        }
+    })
+</script>
+</body>
+</html>
