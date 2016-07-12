@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../../angular.min.js"></script>
+</head>
+<body>
+<div ng-controller="ParentController">
+    <div ng-controller="ChildController">
+        <a ng-click="sayHello()">Say hello</a>
+    </div>
+    {{ person }}
+    <input type="text" ng-model="phone" format-phone>
+</div>
+
+<script>
+    var app = angular.module('app', []);
+    app.controller('ParentController', function ($scope) {
+        $scope.person = {greeted: false};
+
+    });
+    app.controller('ChildController', function ($scope) {
+        $scope.sayHello = function () {
+            $scope.person.name = 'Ari Lerner';
+        };
+    });
+    app.directive('formatPhone', function () {
+        return function (scope, ele, att) {
+            scope.$watch('phone', function (newValue, oldValue) {
+                console.log(angular.isNumber(newValue))
+                if (!isNaN(newValue)) {
+                    scope.phone = newValue.replace(/(\d{3})(?=\d{2,}$)/g, '$1-');
+                }
+            })
+        }
+    });
+</script>
+</body>
+</html>
