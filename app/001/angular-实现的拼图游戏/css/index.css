@@ -1,0 +1,141 @@
+body {
+	background: #EC971F;
+	text-align: center;
+}
+
+.time {
+	text-align: center;
+	line-height: 30px;
+	box-shadow: 0px 0px 8px #888;
+	background: #fff;
+}
+
+.games,
+.original {
+	width: 300px;
+	height: 300px;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	box-shadow: 0px 0px 10px #888;
+	margin-top: 30px;
+}
+
+.original {
+	z-index: 999;
+	background-size: 100% 100%;
+}
+
+.games .item {
+	width: 100px;
+	height: 100px;
+	border: 0px solid #000;
+	cursor: pointer;
+}
+
+.games .item-0-0 {
+	top: 0px;
+	left: 0px;
+	position: absolute;
+}
+
+.games .item-1-0 {
+	top: 0px;
+	left: 100px;
+	position: absolute;
+}
+
+.games .item-2-0 {
+	top: 0px;
+	left: 200px;
+	position: absolute;
+}
+
+.games .item-0-1 {
+	top: 100px;
+	left: 0px;
+	position: absolute;
+}
+
+.games .item-1-1 {
+	top: 100px;
+	left: 100px;
+	position: absolute;
+}
+
+.games .item-2-1 {
+	top: 100px;
+	left: 200px;
+	position: absolute;
+}
+
+.games .item-0-2 {
+	top: 200px;
+	left: 0px;
+	position: absolute;
+}
+
+.games .item-1-2 {
+	top: 200px;
+	left: 100px;
+	position: absolute;
+}
+
+.games .item-2-2 {
+	top: 200px;
+	left: 200px;
+	position: absolute;
+}
+
+.games .bg-0-0 {
+	background-position: 0% 0%;
+}
+
+.games .bg-1-0 {
+	background-position: 200% 0%;
+}
+
+.games .bg-2-0 {
+	background-position: 100% 0%;
+}
+
+.games .bg-0-1 {
+	background-position: 0% 200%;
+}
+
+.games .bg-1-1 {
+	background-position: 200% 200%;
+}
+
+.games .bg-2-1 {
+	background-position: 100% 200%;
+}
+
+.games .bg-0-2 {
+	background-position: 0% 100%;
+}
+
+.games .bg-1-2 {
+	background-position: 200% 100%;
+}
+
+.games>div {
+	background-size: 300% 300%;
+}
+
+.btn {
+	margin-top: 20px;
+	width: 80%;
+	max-width: 300px;
+}
+
+.version {
+	position: fixed;
+	bottom: 0px;
+	text-align: center;
+	height: 30px;
+	line-height: 30px;
+	background: #FFF;
+	box-shadow: 0px 0px 8px #888;
+	width: 100%;
+}

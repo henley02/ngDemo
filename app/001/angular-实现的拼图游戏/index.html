@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>Game</title>
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link rel="stylesheet" href="css/index.css" />
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/angular-animate.min.js"></script>
+		<script type="text/javascript" src="js/mui.min.js"></script>
+	</head>
+	<body ng-app="app" ng-controller="GameCtrl">
+		<div class="time" ng-bind-template="用时:{{second}}秒" ></div>
+		<div class="games" ng-hide="showOriginal">
+			<div ng-click="move(var,true)" class="item" ng-style="bg" ng-class="'bg'+'-'+var.xx+'-'+var.yy +' item'+'-'+var.x+'-'+var.y" ng-repeat="var in data">
+				<!--<span style="background: #fff;" ng-bind-template="x:{{var.xx}},y:{{var.yy}},i:{{var.index}}"></span>-->
+			</div>
+		</div>
+		<div class="original" ng-style="bg" ng-show="showOriginal"></div>
+		<button class="btn mui-btn-primary" ng-click="restart()">重新开始</button>
+		<button class="btn " ng-click="original()">查看原图</button>
+		<div class="version">create by: 超零度 <em>2015-12-12</em></div>
+	</body>
+	<script type="text/javascript" src="js/game.js" ></script>
+</html>

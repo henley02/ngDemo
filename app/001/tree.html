@@ -35,9 +35,9 @@
                     template: '<div ng-transclude=""></div>',
                     controller: function () {
                         var expanders = [];
-                        this.getOpened = function (seleectedExpander) {
+                        this.getOpened = function (selectedExpander) {
                             angular.forEach(expanders, function (expander) {
-                                if (expander != seleectedExpander) {
+                                if (expander != selectedExpander) {
                                     expander.showMe = false;
                                 }
                             })

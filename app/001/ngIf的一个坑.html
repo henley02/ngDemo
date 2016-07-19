@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="App">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../../angular.min.js"></script>
+</head>
+<body ng-controller="app">
+<hr>
+<h3>这里使用ng-if</h3>
+
+<div ng-if="1">
+    <li ng-repeat="item in list">
+        <input type="radio" name="name" ng-model="$parent.getName" ng-value="item.name">{{item.name}}
+    </li>
+</div>
+
+你选中的名字：{{getName}}
+<hr>
+
+<h3>这里使用ng-show</h3>
+
+<div ng-show="1">
+    <li ng-repeat="item in list">
+        <input type="radio" name="name" ng-model="$parent.getName2" ng-value="item.name">{{item.name}}
+    </li>
+</div>
+
+你选中的名字：{{getName2}}
+<script>
+    angular.module('App', []).controller('app', ['$scope', function ($scope) {
+        $scope.list = []
+        for (var i = 0; i < 20; i++) {
+            $scope.list.push({"name": "王" + i});
+        }
+    }])
+</script>
+</body>
+</html>
