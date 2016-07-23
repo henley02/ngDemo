@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="panel">
+    <div class="page-header">
+        <h3>Angular App</h3>
+    </div>
+    <h4 ng-controller="dayCtrl" highlight="Saturday">Today is {{day ||'(unknown)' |dayName}}</h4>
+    <h4 ng-controller="tomorrowCtrl">Tomorrow is {{day ||'(unknown)' |dayName}}</h4>
+</div>
+<script type="text/javascript">
+    var app = angular.module("app", []);
+    app.controller("dayCtrl", ['$scope','days', function dayCtrl($scope, days) {
+        $scope.day = days.today;
+    }]);
+    app.controller("tomorrowCtrl", ['$scope','days', function dayCtrl($scope, days) {
+        $scope.day = days.tomorrow;
+    }]);
+    app.filter('dayName', function () {
+        var dayName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        return function (input) {
+            return angular.isNumber(input) ? dayName[input % 7] : input;
+        }
+    });
+    app.directive('highlight', function ($filter) {
+        var dayFilter = $filter("dayName");
+        return function (scope, ele, attr) {
+            if (attr['highlight'] == dayFilter(scope.day)) {
+                ele.css("color", "red");
+            }
+        }
+    });
+    app.service('days', function () {
+        this.today = new Date().getDay();
+        this.tomorrow = this.today + 1;
+    })
+</script>
+</body>
+</html>

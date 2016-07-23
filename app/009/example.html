@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+</head>
+<body ng-controller="dayCtrl">
+<div class="panel">
+    <div class="page-header">
+        <h3>Angular App</h3>
+    </div>
+    <h4>Today is {{day ||'(unknown)'}}</h4>
+</div>
+<script type="text/javascript">
+    var app = angular.module("app", []);
+    app.controller("dayCtrl", ['$scope', function dayCtrl($scope) {
+        var dayName=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+        $scope.day=dayName[new Date().getDay()];
+    }]);
+</script>
+</body>
+</html>
