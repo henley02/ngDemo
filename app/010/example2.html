@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="panel" id="todoPanel" ng-controller="defaultCrl">
+    <h3 class="panel-heading">To Do List</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Action</th>
+            <th>Done</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="todo in todos">
+            <td>{{todo.action}}</td>
+            <td>{{todo.complete}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    var app = angular.module("app", []);
+    app.controller("defaultCrl", ['$scope', function dayCtrl($scope) {
+        $scope.todos = [
+            {action: 'Get groceries', complete: false},
+            {action: 'Call plumber', complete: false},
+            {action: 'Buy running shoes', complete: true},
+            {action: 'Buy flowers', complete: false},
+            {action: 'Call family', complete: false},
+        ];
+        $scope.and = '312321';
+    }]);
+
+</script>
+</body>
+</html>
