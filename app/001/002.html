@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../../angular.min.js"></script>
+</head>
+<body ng-controller="demoCtrl">
+<select ng-model="query" ng-options="m for m  in model">
+    <option value="" label="">--请选择--</option>
+
+</select>
+<div>---{{query}}---</div>
+<ul>
+    <li ng-repeat="item in items |filter :{name:query}">姓名：{{item.name}} 年龄：{{item.age}}</li>
+</ul>
+</body>
+<script>
+    angular.module('app', []).controller('demoCtrl', function ($scope) {
+        $scope.items = [
+            {age: 11, name: 'tom'}, {age: 12, name: 'henley'},
+            {age: 12, name: 'tom'}, {age: 13, name: 'henley'}
+        ];
+        $scope.model = ['tom','henley'] ;
+    })
+</script>
+</html>
