@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+    <script src="../../angular.min.js"></script>
+
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <script>
+        angular.module('app', []).controller('defaultCtrl', function ($scope) {
+            $scope.message = "Tap Me!";
+        }).directive('tap', function () {
+            return function (scope, elem, attrs) {
+                elem.on("touchstart touchend", function () {
+                    console.log(attrs["tap"])
+                    scope.$apply(attrs["tap"]);
+                });
+       /*         elem.on("mouseover", function () {
+                    scope.$apply(attrs["tap"]);
+                });
+                elem.on("mouseout", function () {
+                    scope.$apply(function () {
+                        scope.message = "Tap Me!";
+                    })
+                })*/
+            }
+        })
+    </script>
+</head>
+<body>
+<div id="todoPanel" class="panel" ng-controller="defaultCtrl">
+    <div class="well" tap="message='Tapped3213!'">
+        {{message}}
+    </div>
+</div>
+</body>
+</html>
