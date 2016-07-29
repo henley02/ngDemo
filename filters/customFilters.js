@@ -70,7 +70,7 @@ angular.module("sportsStore")
             return params[name] ? params[name] : undefined;
         }
     }])
-//获取浏览器类型
+    //获取浏览器类型
     .service('browser', [function () {
         var u = navigator.userAgent.toLowerCase();
         return {
@@ -123,3 +123,26 @@ angular.module("sportsStore")
 
         };
     }])
+    .filter('timeFormat', function () {
+        return function (value, format) {
+            var value = new Date(value);
+            var format = format || 'yyyy-MM-dd hh:mm:ss';
+            var args = {
+                "M+": value.getMonth() + 1,
+                "d+": value.getDate(),
+                "h+": value.getHours(),
+                "m+": value.getMinutes(),
+                "s+": value.getSeconds(),
+                "q+": Math.floor((value.getMonth() + 3) / 3),  //quarter
+                "S": value.getMilliseconds()
+            };
+            if (/(y+)/.test(format))
+                format = format.replace(RegExp.$1, (value.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var i in args) {
+                var n = args[i];
+                if (new RegExp("(" + i + ")").test(format))
+                    format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? n : ("00" + n).substr(("" + n).length));
+            }
+            return format;
+        }
+    });

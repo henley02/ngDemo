@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../../angular.min.js"></script>
+</head>
+<body ng-controller="demoCtrl">
+<div id="uploadifytest" class="btn" ng-model="image" snail-uploadify="{auto:false,buttonText:'图片上传'}"></div>
+</body>
+<script>
+    angular.module('app', [])
+            .controller('demoCtrl', function () {
+            })
+            .directive("snailUploadify", function () {
+                return {
+                    require: '?ngModel',
+                    restrict: 'A',
+                    link: function ($scope, element, attrs, ngModel) {
+                        var opts = angular.extend({}, $scope.$eval(attrs.nlUploadify));
+                        element.uploadify({
+                            'fileObjName': opts.fileObjName || 'upfile',
+                            'auto': opts.auto != undefined ? opts.auto : true,
+                            'swf': opts.swf || '/Plugin/uploadify/uploadify.swf',
+                            'uploader': opts.uploader || '/Admin/Uploader/ImageUp',//图片上传方法
+                            'buttonText': opts.buttonText || '本地图片',
+                            'width': opts.width || 80,
+                            'height': opts.height || 25,
+                            'onUploadSuccess': function (file, d, response) {
+                                if (ngModel) {
+                                    var result = eval("[" + d + "]")[0];
+                                    if (result.state == "SUCCESS") {
+                                        $scope.$apply(function () {
+                                            ngModel.$setViewValue(result.url);
+                                        });
+                                    }
+                                }
+                            }
+                        });
+                    }
+                };
+            });
+</script>
+</html>
