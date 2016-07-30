@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+    <script src="../../angular.min.js"></script>
+
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <script>
+        angular.module('app', []).controller('defaultCtrl', function ($scope) {
+            $scope.dataValue = false;
+        })
+    </script>
+</head>
+<body>
+<div id="todoPanel" class="panel" ng-controller="defaultCtrl">
+    <h3 class="panel-heading">To Do List</h3>
+    <div class="checkbox well">
+        <label>
+            <input type="checkbox" ng-model="dataValue">Set the Data Value
+        </label>
+    </div>
+    <button class="btn btn-success" ng-disabled="dataValue">My Button</button>
+</div>
+</body>
+</html>

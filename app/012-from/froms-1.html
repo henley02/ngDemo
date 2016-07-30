@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Forms</title>
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <script>
+        angular.module('app', []).controller('defaultCtrl', function ($scope) {
+            $scope.todos = [
+                {action: 'Get groceries', complete: false},
+                {action: 'Call plumber', complete: false},
+                {action: 'Buy running shoes', complete: true},
+                {action: 'Buy flowers', complete: false},
+                {action: 'Call family', complete: false}
+            ];
+            $scope.addNewItem = function (newItem) {
+                if (angular.isDefined(newItem) && angular.isDefined(newItem.action) && angular.isDefined(newItem.location)) {
+                    $scope.todos.push({
+                        action: newItem.action + "(" + newItem.location + ")",
+                        complete: false
+                    });
+                }
+            }
+        })
+    </script>
+</head>
+<body>
+<div id="todoPanel" class="panel" ng-controller="defaultCtrl">
+    <h3 class="panel-heading">To Do List
+    <span class="label label-info">
+        {{(todos|filter:{complete:'false'}).length}}
+    </span>
+    </h3>
+
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="well">
+                <div class="form-group row">
+                    <label for="actionText">Action:</label>
+                    <input id="actionText" class="form-control" ng-model="newTodo.action">
+                </div>
+                <div class="form-group row">
+                    <label for="actionLocation">Location:</label>
+                    <select id="actionLocation" class="form-control" ng-model="newTodo.location">
+                        <option>Home</option>
+                        <option>Office</option>
+                        <option>Mall</option>
+                    </select>
+                </div>
+                <div class="btn bg-primary btn-block" ng-click="addNewItem(newTodo)">Add</div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Action</th>
+                    <th>Done</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in todos" ng-class="settings.Rows">
+                    <td>{{$index+1}}</td>
+                    <td>{{item.action}}</td>
+                    <td><input type="checkbox" ng-model=item.complete></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

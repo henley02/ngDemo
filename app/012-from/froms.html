@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Forms</title>
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <script>
+        angular.module('app', []).controller('defaultCtrl', function ($scope) {
+            $scope.todos = [
+                {action: 'Get groceries', complete: false},
+                {action: 'Call plumber', complete: false},
+                {action: 'Buy running shoes', complete: true},
+                {action: 'Buy flowers', complete: false},
+                {action: 'Call family', complete: false}
+            ];
+        })
+    </script>
+</head>
+<body>
+<div id="todoPanel" class="panel" ng-controller="defaultCtrl">
+    <h3 class="panel-heading">To Do List
+    <span class="label label-info">
+        {{(todos|filter:{complete:'false'}).length}}
+    </span>
+    </h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Action</th>
+            <th>Done</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in todos" ng-class="settings.Rows">
+            <td>{{$index+1}}</td>
+            <td>{{item.action}}</td>
+            <td><input type="checkbox" ng-model=item.complete> </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
