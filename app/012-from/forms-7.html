@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>使用select元素</title>
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <script>
+        angular.module('app', []).controller('defaultCtrl', function ($scope) {
+            $scope.todos=[
+                {id:100,action:"Get groceries",complete:false},
+                {id:200,action:"Call plumber",complete:false},
+                {id:300,action:"Buy running shoes",complete:true}
+            ]
+        })
+    </script>
+</head>
+<body>
+<div id="todoPanel" class="panel" ng-controller="defaultCtrl">
+    <form name="myForm" novalidate>
+        <div class="well">
+            <div class="form-group">
+                <label>Select an Action:</label>
+                <select ng-model="selectedValue" ng-options="item.id as item.action for item in todos">
+                    <option value="">(Pick One)</option>
+                </select>
+            </div>
+        </div>
+        <div class="well">
+            <p>Selected:{{selectedValue||'none'}}</p>
+        </div>
+    </form>
+</div>
+</body>
+</html>
