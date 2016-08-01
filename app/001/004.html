@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../../angular.min.js"></script>
+</head>
+<body ng-controller="demoCtrl">
+<div alotohello="5">
+    <p>hello world!</p>
+</div>
+</body>
+<script>
+    angular.module('app', []).controller('demoCtrl', function ($scope) {
+
+    }).directive('alotohello', function () {
+        return {
+            restrict: 'A',
+            compile: function (ele, attr, transclude) {
+                var tpl = ele.children().clone();
+                for (var i = 0; i < attr.alotohello - 1; i++) {
+                    ele.append(tpl.clone());
+                }
+                return function (scope, ele, attr, controller) {
+
+                }
+            }
+        }
+    })
+</script>
+</html>

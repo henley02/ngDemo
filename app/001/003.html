@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../../angular.min.js"></script>
+</head>
+<body ng-controller="demoCtrl">
+</body>
+<script>
+    angular.module('app', []).controller('demoCtrl', function ($scope, $injector) {
+        console.log($injector);
+        console.log($injector.has('game'));
+        console.log($injector.get('game'));
+        console.log($injector.annotate(function(arr,arr1){}));
+        $injector.invoke(function (game) {
+            console.log(game.getName);
+        })
+
+    }).factory('game', function () {
+        return {
+            getName: 'hello world'
+        }
+    })
+</script>
+</html>
