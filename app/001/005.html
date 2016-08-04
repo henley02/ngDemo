@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+</head>
+<body class="container">
+<div ng-controller="DemoCtrl as demo">
+    <div ng-form="form" class="form-horizontal">
+        <div class="form-group" ng-class="{'has-error': form.amount.$invalid }">
+            <label for="amount">Amount</label>
+            <!-- 这个input将工作不正常 -->
+            <input id="amount" name="amount" type="number" ng-model="demo.amount" class="form-control"
+                   placeholder="1 - 100" min="1" max="100"/>
+        </div>
+    </div>
+</div>
+<div ng-controller="ParentCtrl">
+    <div class="form-group">
+        <h4>Parent Controller:</h4>
+        <pre></pre>
+        <input type="text" ng-model="greet" class="form-control"/>
+    </div>
+    <div ng-controller="ChildCtrl">
+        <div class="form-group">
+            <h4>Child controller:</h4>
+            <pre></pre>
+            <input type="text" ng-model="greet" class="form-control"/>
+        </div>
+    </div>
+
+</div>
+<div ng-controller="ParentCtrl1">
+    <div class="form-group">
+        <h4>Parent Controller:</h4>
+        <pre></pre>
+        <input type="text" ng-model="vm.greet" class="form-control" />
+    </div>
+    <div ng-controller="ChildCtrl1">
+        <div class="form-group">
+            <h4>Child controller:</h4>
+            <pre></pre>
+            <input type="text" ng-model="vm.greet" class="form-control" />
+        </div>
+    </div>
+</div>
+<script>
+    angular.module("app", [])
+            .controller("DemoCtrl", [function () {
+                var vm = this;
+                vm.amount = 0;
+                return vm;
+            }])
+            .controller("ParentCtrl", ["$scope", function ($scope) {
+
+                $scope.greet = "hello angular!";
+
+            }])
+            .controller("ChildCtrl", angular.noop)
+            .controller("ParentCtrl1", ["$scope", function($scope) {
+
+                $scope.vm = {
+                    greet: "hello angular!"
+                };
+
+            }])
+            .controller("ChildCtrl1", angular.noop);
+</script>
+
+</body>
+
+</html>
