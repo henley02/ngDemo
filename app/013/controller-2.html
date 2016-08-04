@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Forms</title>
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <script>
+        angular.module('app', []).controller('defaultCtrl', function ($scope) {
+            $scope.address = {};
+            $scope.setAddress = function (type, zip) {
+                console.log("Type:" + type + "  " + zip);
+            }
+            $scope.copyAddress = function () {
+                $scope.shippingZip = $scope.billingZip;
+            }
+        })
+    </script>
+</head>
+<body>
+<div id="todoPanel" class="panel" >
+    <div class="well" ng-controller="defaultCtrl">
+        <h4>Billing Zip Code</h4>
+
+        <div class="form-group">
+            <input class="form-control" ng-model="zip">
+        </div>
+        <button class="btn btn-primary" ng-click="setAddress('billingZip',zip)">
+            Saving Billing
+        </button>
+    </div>
+
+    <div class="well" ng-controller="defaultCtrl">
+        <h4>Shipping Zip Code</h4>
+
+        <div class="form-group">
+            <input class="form-control" ng-model="zip">
+        </div>
+        <button class="btn btn-primary" ng-click="setAddress('shippingZip',zip)">
+            Saving Shipping
+        </button>
+    </div>
+</div>
+</body>
+</html>
