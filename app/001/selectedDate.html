@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="../../bower_components/angular-bootstrap/ui-bootstrap-csp.css" rel="stylesheet">
+    <script src="../../angular.min.js"></script>
+    <script src="../../bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="../../bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+</head>
+<body ng-controller="defaultCtrl">
+<pre>选中的日期: <strong>{{vm.calendar | date:'fullDate' }}</strong></pre>
+
+<h4>普通样式</h4>
+<div style="display:inline-block; min-height:290px;">
+    <datepicker ng-model="vm.calendar" min-date="vm.minDate" show-weeks="true" format-day-title="yyyy MMMM"
+                class="well well-sm"></datepicker>
+</div>
+
+<h4>弹出样式</h4>
+<div class="row">
+    <div class="col-md-6">
+        <p class="input-group">
+            <input type="text" class="form-control" datepicker-popup="{{vm.format}}" ng-model="vm.calendar"
+                   is-open="vm.opened" min-date="vm.minDate" max-date="'2015-06-22'" datepicker-options="vm.dateOptions"
+                   date-disabled="vm.disabled(date, mode)" ng-required="true" close-text="关闭"/>
+            <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="vm.open($event)"><i
+                  class="glyphicon glyphicon-calendar"></i>
+          </button>
+        </span>
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <label>格式:</label>
+        <select class="form-control" ng-model="vm.format" ng-options="f for f in vm.formats">
+            <option></option>
+        </select>
+    </div>
+</div>
+<hr/>
+
+<button type="button" class="btn btn-sm btn-info" ng-click="vm.today()">选中今天</button>
+<button type="button" class="btn btn-sm btn-default" ng-click="vm.calendar = '2014-05-14'">2014-05-14</button>
+<button type="button" class="btn btn-sm btn-danger" ng-click="vm.clear()">清空</button>
+<button type="button" class="btn btn-sm btn-default" ng-click="vm.toggleMin()" tooltip="是否允许选择当前日期之前的日期">最小日期</button>
+<script>
+    angular.module('app', []).controller('defaultCtrl', function ($scope) {
+        var vm = $scope.vm = {};
+        //初始化日期
+        vm.today = function () {
+            vm.calendar = new Date();
+        };
+        vm.today();
+
+        //清除当前日期
+        vm.clear = function () {
+            vm.calendar = null;
+        };
+
+
+        // 不允许选择周末
+        vm.disabled = function (date, mode) {
+            return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
+        };
+
+        //最小日期开关
+        vm.toggleMin = function () {
+            vm.minDate = vm.minDate ? null : new Date();
+        };
+        vm.toggleMin();
+
+        //弹出式日历触发函数
+        vm.open = function ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            vm.opened = true;
+        };
+
+        //自定义选项
+        vm.dateOptions = {
+            formatYear: 'yy',
+            startingDay: 1,
+            formatDayTitle: 'yyyy MMMM'
+        };
+
+        //输出格式控制,来源:官方date filter
+        vm.formats = ['yyyy-MMMM-dd', 'yyyy/MM/dd', 'yyyy.MM.dd', 'shortDate'];
+        vm.format = vm.formats[1];
+    });
+</script>
+</body>
+</html>
