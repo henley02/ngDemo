@@ -44,6 +44,10 @@
     </div>
 </div>
 <script>
+    /*
+    * 如果想要数据在开始时是被共享的但是在修改时会复制一份,就直接在作用域上定义数据属性
+    * 如果想要确定始终只有一份数据值,就通过一个对象来定义数据属性
+    * */
     angular.module('app', [])
             .controller('topLevelCtrl', function ($scope) {
                 $scope.data = {
