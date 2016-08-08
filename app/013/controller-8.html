@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>使用无作用域的控制器</title>
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="well" ng-controller="simpleCtrl as ctrl">
+    <h4>First Controller</h4>
+
+    <div class="input-group">
+        <span class="input-group-btn">
+            <button class="btn btn-default" ng-click="ctrl.reverseText()">Reverse</button>
+        </span>
+        <input class="form-control" ng-model="ctrl.dataValue">
+    </div>
+</div>
+<script>
+    angular.module('app', [])
+            .controller("simpleCtrl", function () {
+                this.dataValue = "Hello,Adam";
+
+                this.reverseText = function () {
+                    this.dataValue = this.dataValue.split("").reverse().join("");
+                }
+            })
+
+</script>
+</body>
+</html>
