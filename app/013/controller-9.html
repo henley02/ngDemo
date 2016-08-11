@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Controllers</title>
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <script src="jquery.min.js"></script>
+    <script src="jquery-ui.min.js"></script>
+    <link href="jquery-ui.min.css" rel="stylesheet">
+    <script>
+        $(document).ready(function () {
+            $("#jqui button").button().click(function (e) {
+                //alert("Jquery UI Button was clicked");
+                angular.element(angularRegion).scope().$apply('handleClick()');
+            })
+        })
+        var app = angular.module('app', []).controller('simpleCtrl', function ($scope) {
+            $scope.buttonEnabled = true;
+            $scope.clickCounter = 0;
+            $scope.handleClick = function () {
+                $scope.clickCounter++;
+            }
+            $scope.$watch('buttonEnabled', function (newVal, oldVal) {
+                $("#jqui button").button({disabled: !newVal});
+            })
+        })
+
+    </script>
+</head>
+<body>
+<div id="angularRegion" class="well" ng-controller="simpleCtrl">
+    <h4>AngularJs</h4>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" ng-model="buttonEnabled">Enabled Button
+        </label>
+        Click counter:{{clickCounter}}s
+    </div>
+    <div id="jqui" class="well">
+        <h4>jQuery UI</h4>
+        <button>Click Me!</button>
+    </div>
+</div>
+</body>
+</html>
