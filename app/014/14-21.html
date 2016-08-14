@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <title>自定义过滤器</title>
+    <script>
+        angular.module('app', [])
+                .controller('defaultCtrl', function ($scope) {
+                    $scope.products = [
+                        {name: 'Apples', category: 'Fruit', price: 1.20, expiry: 10},
+                        {name: 'Bananas', category: 'Fruit', price: 2.44, expiry: 7},
+                        {name: 'pears', category: 'Fruit', price: 2.02, expiry: 6},
+
+                        {name: 'Tuna', category: 'Fish', price: 20.45, expiry: 3},
+                        {name: 'Salmon', category: 'Fish', price: 17.93, expiry: 2},
+                        {name: 'Trout', category: 'Fish', price: 12.93, expiry: 4},
+
+                        {name: 'Beer', category: 'Drinks', price: 2.99, expiry: 365},
+                        {name: 'Wine', category: 'Drinks', price: 8.99, expiry: 365},
+                        {name: 'Whiskey', category: 'Drinks', price: 45.99, expiry: 365},
+                    ];
+                    $scope.getExpiryDate = function (days) {
+                        var now = new Date();
+                        return now.setDate(now.getDate() + days);
+                    }
+
+                    $scope.myCustomerSorter = function (item) {
+                        return item.expiry < 5 ? 0 : item.price;
+                    }
+                })
+                .filter('labelCase', function () {
+                    return function (value, reverse) {
+                        if (angular.isString(value)) {
+                            var intermediate = reverse ? value.toUpperCase() : value.toLowerCase();
+                            //首字母为大写
+                            return (reverse ? intermediate[0].toLowerCase() : intermediate[0].toUpperCase()) + intermediate.substr(1);
+                        } else {
+                            return value;
+                        }
+                    }
+                })
+                .filter("skip", function () {
+                    return function (data, count) {
+                        if (angular.isArray(data) && angular.isNumber(count)) {
+                            if (count > data.length && count < 1) {
+                                return data;
+                            } else {
+                                return data.slice(count);
+                            }
+                        } else {
+                            return data;
+                        }
+                    }
+                });
+
+    </script>
+</head>
+<body ng-controller="defaultCtrl">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>Products
+            <span class="label bg-primary">{{products.length}}</span>
+        </h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <td>Name</td>
+                <td>Category</td>
+                <td>Expiry</td>
+                <td class="text-right">Price</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="p in products |skip:2| limitTo:5">
+                <td>{{p.name |labelCase}}</td>
+                <td>{{p.category | labelCase:true}}</td>
+                <td>{{p.expiry}}</td>
+                <td class="text-right">{{p.price|currency }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
