@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <title>Directive</title>
+    <script>
+        angular.module('app', [])
+                .controller('defaultCtrl', function ($scope) {
+                    $scope.products = [
+                        {name: 'Apples', category: 'Fruit', price: 1.20, expiry: 10},
+                        {name: 'Bananas', category: 'Fruit', price: 2.44, expiry: 7},
+                        {name: 'pears', category: 'Fruit', price: 2.02, expiry: 6},
+                    ];
+                    $scope.incrementPrice = function () {
+                        for (var i = 0; i < $scope.products; i++) {
+                            $scope.products[i].price++;
+                        }
+                    }
+                })
+                .directive("unorderedList", function () {
+                    return function (scope, element, attrs) {
+                        var data = scope[attrs["unorderedList"]];
+                        var propertyExpression = attrs["listProperty"];
+
+                        if (angular.isArray(data)) {
+                            var listElem = angular.element("<ul>");
+                            element.append(listElem);
+                            for (var i = 0; i < data.length; i++) {
+                                var itemElement = angular.element("<li>");
+                                listElem.append(itemElement);
+                                var watcherFn = function (watchScope) {
+                                    return watchScope.$eval(propertyExpression, data[i]);
+                                }
+                                scope.$watch(watcherFn, function (newVal, oldVal) {
+                                    itemElement.text(newVal);
+                                })
+                            }
+                        }
+                    }
+                });
+    </script>
+</head>
+<body ng-controller="defaultCtrl">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>Products</h3>
+    </div>
+    <div class="panel-body">
+        <button class="btn btn-primary" ng-click="incrementPrice()">Change Prices</button>
+    </div>
+    <div class="panel-body">
+        <div unordered-list="products" list-property="price|currency:'RBM:'"></div>
+    </div>
+</div>
+</body>
+</html>
