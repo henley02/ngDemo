@@ -29,14 +29,17 @@
                             var listElem = angular.element("<ul>");
                             element.append(listElem);
                             for (var i = 0; i < data.length; i++) {
-                                var itemElement = angular.element("<li>");
-                                listElem.append(itemElement);
-                                var watcherFn = function (watchScope) {
-                                    return watchScope.$eval(propertyExpression, data[i]);
-                                }
-                                scope.$watch(watcherFn, function (newVal, oldVal) {
-                                    itemElement.text(newVal);
-                                })
+                                (function () {
+                                    var itemElement = angular.element("<li>");
+                                    listElem.append(itemElement);
+                                    var index = i;
+                                    var watcherFn = function (watchScope) {
+                                        return watchScope.$eval(propertyExpression, data[index]);
+                                    }
+                                    scope.$watch(watcherFn, function (newVal, oldVal) {
+                                        itemElement.text(newVal);
+                                    })
+                                }());
                             }
                         }
                     }
@@ -52,7 +55,7 @@
         <button class="btn btn-primary" ng-click="incrementPrice()">Change Prices</button>
     </div>
     <div class="panel-body">
-        <div unordered-list="products" list-property="price|currency:'RBM:'"></div>
+        <div unordered-list="products" list-property="price|currency"></div>
     </div>
 </div>
 </body>
