@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <title>Directive</title>
+    <style>
+        .bold {
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        angular.module('app', [])
+                .controller('defaultCtrl', function ($scope) {
+                    $scope.names = ["Apples", "Bananas", "Oranges"];
+                })
+                .directive("demoDirective", function () {
+                    return function (scope, element, attrs) {
+                        var itemElem = angular.element("<ul>");
+                        element.append(itemElem);
+                        for (var i = 0; i < scope.names.length; i++) {
+                            itemElem.append(angular.element("<li>").append(angular.element("<span>").text(scope.names[i])));
+                        }
+                        var bottons = element.find("button");
+                        bottons.on('click', function (e) {
+                            element.find("li").toggleClass("bold");
+                        })
+                    }
+                });
+    </script>
+</head>
+<body ng-controller="defaultCtrl">
+<h3>Fruit</h3>
+<div demo-directive>
+    <button>Click Me</button>
+</div>
+</body>
+</html>

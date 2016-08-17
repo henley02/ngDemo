@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <title>Directive</title>
+    <script>
+        angular.module('app', [])
+                .controller('defaultCtrl', function ($scope) {
+                    $scope.names = ["Apples", "Bananas", "Oranges"];
+                })
+                .directive("demoDirective", function () {
+                    return function (scope, element, attrs) {
+                        var itemElem = angular.element("<ul>");
+                        element.append(itemElem);
+                        for (var i = 0; i < scope.names.length; i++) {
+                            itemElem.append(angular.element("<li>").append(angular.element("<span>").text(scope.names[i])));
+                        }
+                    }
+                });
+    </script>
+</head>
+<body ng-controller="defaultCtrl">
+<h3>Fruit</h3>
+<div demo-directive>
+</div>
+</body>
+</html>
