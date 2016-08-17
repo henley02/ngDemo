@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <title>Directive</title>
+    <script>
+        angular.module('app', [])
+                .controller('firstCtrl', function ($scope) {
+                })
+                .controller("secondCtrl", function () {
+                })
+                .directive("scopeDemo", function () {
+                    return {
+                        replace: true,
+                        template: "<div class='panel-body'>Name:<input ng-model='name'/></div>"
+                    }
+                });
+    </script>
+</head>
+<body>
+<div class="panel panel-default">
+    <div class="panel-body" scope-demo ng-controller="firstCtrl"></div>
+    <div class="panel-body" scope-demo ng-controller="secondCtrl"></div>
+</div>
+</body>
+</html>
