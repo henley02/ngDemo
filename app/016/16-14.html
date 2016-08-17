@@ -18,9 +18,8 @@
                 .directive("unorderedList", function () {
                     return {
                         restrict: 'A',
-                        templateUrl: function (elem, attrs) {
-                            return attrs["template"] == "table" ? "tableTemplate.html" : "itemTemplate.html"
-                        },
+                        replace:true,
+                        templateUrl: "tableTemplate.html",
                         link: function (scope, element, attrs) {
                             scope.data = scope[attrs["unorderedList"] || attrs["listSource"]];
                         }
@@ -34,10 +33,7 @@
         <h3>Products</h3>
     </div>
     <div class="panel-body">
-        <div unordered-list="products">This is where the list will go</div>
-    </div>
-    <div class="panel-body">
-        <div unordered-list="products" template="table">This is where the list will go</div>
+        <div unordered-list="products" class="table table-striped">This is where the list will go</div>
     </div>
 </div>
 </body>
