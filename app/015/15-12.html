@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <title>Directive</title>
+    <script>
+        angular.module('app', [])
+                .controller('defaultCtrl', function ($scope) {
+                })
+                .directive("demoDirective", function () {
+                    return function (scope, element, attrs) {
+                        var itemEle = element.children();
+                        for (var i = 0; i < itemEle.length; i++) {
+                            //不能写成 item[i]
+                            if (itemEle.eq(i).text() == "Oranges") {
+                                itemEle.eq(i).css({"color": "red"});
+                            }
+                        }
+                    }
+                });
+    </script>
+</head>
+<body ng-controller="defaultCtrl">
+<h3>Fruit</h3>
+<ol demo-directive>
+    <li>Apples</li>
+    <li>Oranges</li>
+    <li>Pears</li>
+</ol>
+</body>
+</html>
