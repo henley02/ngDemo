@@ -12,7 +12,6 @@
             <p>City:<input ng-model="city"></p>
             <p>Country:<input ng-model="country"></p>
         </div>
-
     </script>
     <script>
         angular.module('app', [])
@@ -22,7 +21,7 @@
                 })
                 .directive("scopeDemo", function () {
                     return {
-                        scope: {},
+                        scope: true,
                         template: function () {
                             return angular.element(document.querySelectorAll('#scopeTemplate')).html();
                         }
