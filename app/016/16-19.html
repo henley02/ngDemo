@@ -22,7 +22,7 @@
                 })
                 .directive("scopeDemo", function () {
                     return {
-                        scope: {},
+                        scope: true,
                         template: function () {
                             return angular.element(document.querySelectorAll('#scopeTemplate')).html();
                         }
