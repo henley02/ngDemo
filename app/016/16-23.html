@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <title>Directive Scope</title>
+    <script type="text/template" id="scopeTemplate">
+        <div class="panel-body">
+            <p>Data Value:<input ng-model="local"></p>
+        </div>
+    </script>
+    <script>
+        angular.module('app', [])
+                .controller('firstCtrl', function ($scope) {
+                    $scope.data = {name: 'Adam'};
+                })
+                .directive("scopeDemo", function () {
+                    return {
+                        scope: {
+                            local: "=nameprop"
+                        },
+                        template: function () {
+                            return angular.element(document.querySelectorAll('#scopeTemplate')).html();
+                        }
+                    }
+                });
+    </script>
+</head>
+<body>
+<div class="panel panel-default" ng-controller="firstCtrl">
+    <div class="panel-body">
+        Direct Binding :<input ng-model="data.name">
+    </div>
+    <div class="panel-body" scope-demo="" nameprop="data.name">
+    </div>
+</div>
+</body>
+</html>
