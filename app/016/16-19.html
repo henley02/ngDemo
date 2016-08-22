@@ -15,6 +15,9 @@
 
     </script>
     <script>
+        //data.name这个属性是对象上定义的，这意味着这个值将会在指令的各个实例之间所共享，而且所有绑定到该属性的输入框元素将保持同步
+        //city这个属性是在控制器的作用域上被直接赋值的，意味着指令所有的作用域将会从同一个初始值开始，但是在输入框元素被修改时会在自己的作用域上创建和修改自己的版本
+        //country这个属性没有被赋任何值。当相应的输入框元素被修改时，指令的每个势力将会创建出独立的country属性
         angular.module('app', [])
                 .controller('firstCtrl', function ($scope) {
                     $scope.data = {name: 'Adam'};
