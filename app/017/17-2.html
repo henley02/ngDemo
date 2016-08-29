@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <title>compile Function</title>
+    <script>
+        angular.module('app', [])
+                .controller('defaultCrl', function ($scope) {
+                    $scope.products = [
+                        {name: 'Apples', price: 1.20},
+                        {name: 'Bananas', price: 2.42},
+                        {name: 'Pears', price: 2.02},
+                    ];
+                    $scope.changeData = function () {
+                        $scope.products.push({name: "Cherries", price: 4.02});
+                        for (var i = 0; i < $scope.products.length; i++) {
+                            $scope.products[i].price++;
+                        }
+                    }
+
+                })
+                .directive("simpleRepeater", function () {
+                    return {
+                        scope: {
+                            data: '=source',
+                            propName: '@itemName'
+                        },
+                        transclude: 'element',
+                        compile: function (element, attrs, transcludeFn) {
+                            return function($scope,$element,$attr){
+                                $scope.$watch("data.length", function () {
+                                    var paren = $element.parent();
+                                    paren.children().remove();
+                                    for (var i = 0; i < $scope.data.length; i++) {
+                                        var childScope = $scope.$new();
+                                        childScope[$scope.propName] = $scope.data[i];
+                                        console.log( childScope[$scope.propName])
+                                        transcludeFn(childScope, function (clone) {
+                                            paren.append(clone);
+                                        })
+                                    }
+                                })
+                            }
+                        }
+                    }
+                });
+    </script>
+</head>
+<body>
+<div class="panel panel-default" ng-controller="defaultCrl">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr simple-repeater source="products" item-name="item">
+            <td>{{item.name}}</td>
+            <td>{{item.price |currency}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-default text" ng-click="changeData()">Change</button>
+</div>
+</body>
+</html>
