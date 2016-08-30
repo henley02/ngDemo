@@ -35,8 +35,12 @@
                                     }
                                 }
                             };
+                            //$render方法会被ng-model指令调用
                             ctrl.$render=function(){
-                                selected(scope.dataValue);
+                                //selected(scope.dataValue);
+                                console.log(ctrl.$viewValue)
+                                //通过读取$viewValue属性可以拿到最新的值
+                                selected(ctrl.$viewValue ||'Not Sure');
                             }
                         }
                     }
