@@ -20,14 +20,31 @@
                     ];
                 })
                 .directive("productItem", function () {
-                    return{
-                        template:document.querySelector("#productTemplate").outerText
+                    return {
+                        template: document.querySelector("#productTemplate").outerText,
+                        require: "^productTable",
+                        link: function (scope, element, attr, ctrl) {
+                            scope.$watch('item.quantity', function () {
+                                ctrl.updateTotal();
+                            })
+                        }
                     }
                 })
-                .directive('productTable',function(){
-                    return{
-                        transclude:true,
-                        scope:{value:'=productTable',data:'=productData'}
+                .directive('productTable', function () {
+                    return {
+                        transclude: true,
+                        scope: {value: '=productTable', data: '=productData'},
+                        controller: function ($scope, $element, $attrs) {
+
+                            this.updateTotal = function () {
+                                var total = 0;
+                                for (var i = 0; i < $scope.data.length; i++) {
+                                    total += Number($scope.data[i].quantity);
+                                }
+                                $scope.value = total;
+                            }
+
+                        }
                     }
                 });
     </script>
@@ -37,9 +54,15 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <table class="table table-bordered" product-table="totalValue" product-data="products" ng-transclude="">
-                <tr><th>Name</th><th>Quantity</th></tr>
+                <tr>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                </tr>
                 <tr ng-repeat="item in products" product-item=""></tr>
-                <tr><th>Total:</th><td>{{totalValue}}</td></tr>
+                <tr>
+                    <th>Total:</th>
+                    <td>{{totalValue}}</td>
+                </tr>
             </table>
         </div>
     </div>

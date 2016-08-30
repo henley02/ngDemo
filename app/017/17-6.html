@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <title>CustomerForms</title>
+    <script type="text/template" id="triTemplate">
+        <div class="well">
+            <div class="btn-group">
+                <button class="btn btn-default">Yes</button>
+                <button class="btn btn-default">No</button>
+                <button class="btn btn-default">Not Sure</button>
+            </div>
+        </div>
+    </script>
+    <script>
+        angular.module('app', [])
+                .controller('defaultCrl', function ($scope) {
+                    $scope.dataValue = "Not Sure";
+                })
+                .directive("triButton", function () {
+                    return {
+                        restrict: 'E',
+                        template: document.querySelector("#triTemplate").outerText,
+                        require: 'ngModel',
+                        link: function (scope, element, attrs, ctrl) {
+                            var selected = function (value) {
+                                var buttons = element.find("button");
+                                buttons.removeClass('btn-primary');
+                                for (var i = 0; i < buttons.length; i++) {
+                                    if (buttons.eq(i).text() == value) {
+                                        buttons.eq(i).addClass("btn-primary");
+                                    }
+                                }
+                            };
+                            selected(scope.dataValue);
+                        }
+                    }
+                })
+    </script>
+</head>
+<body>
+<div ng-controller="defaultCrl">
+    <div>
+        <tri-button ng-model="dataValue"/>
+    </div>
+    <div class="well">
+        Value:
+        <select ng-model="dataValue">
+            <option>Yes</option>
+            <option>No</option>
+            <option>Not Sure</option>
+        </select>
+    </div>
+</div>
+</body>
+</html>
