@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM API Services</title>
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <script>
+        angular.module("app", [])
+                .controller("defaultCtrl", function ($scope, $location) {
+                    $scope.itemCount=50;
+                    $scope.items=[];
+                    for(var i=0;i<$scope.itemCount;i++) {
+
+                    }
+                })
+    </script>
+</head>
+<body ng-controller="defaultCtrl">
+<div class="panel panel-default">
+    <h4 class="panel-heading">URL</h4>
+    <div class="panel-body">
+        <p>The URL is: {{url}}</p>
+        <div class="btn-group">
+            <button class="btn btn-primary" ng-click="setUrl('reset')">Reset</button>
+            <button class="btn btn-primary" ng-click="setUrl('path')">Path</button>
+            <button class="btn btn-primary" ng-click="setUrl('hash')">Hash</button>
+            <button class="btn btn-primary" ng-click="setUrl('search')">Search</button>
+            <button class="btn btn-primary" ng-click="setUrl('url')">URL</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

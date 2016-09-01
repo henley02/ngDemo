@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM API Services</title>
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <script>
+        angular.module("app", [])
+                .controller("defaultCtrl", function ($scope, $window) {
+                    $scope.displayAlert = function (msg) {
+                        $window.alert(msg);
+                    }
+                })
+    </script>
+</head>
+<body ng-controller="defaultCtrl" class="well">
+<button class="btn btn-primary" ng-click="displayAlert('Clicked')">Click Me</button>
+</body>
+</html>

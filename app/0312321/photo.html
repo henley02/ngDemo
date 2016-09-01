@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<!--[if IE]>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<![endif]-->
+	<meta charset="utf-8">
+	<title>JavaScript Load Image</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./jcrop/css/vendor/jquery.Jcrop.css">
+
+	<style>
+		body {
+			max-width: 750px;
+			margin: 0 auto;
+			background: #222;
+			color: #fff;
+			-webkit-text-size-adjust: 100%;
+			-ms-text-size-adjust: 100%;
+		}
+		.result{
+			background: #222;
+			text-align: center;
+		}
+		.file {
+			position: relative;
+			display: inline-block;
+			background: #fafafa;
+			border: 1px solid #ebebeb;
+			border-radius: 4px;
+			padding: 4px 12px;
+			overflow: hidden;
+			color: #666;
+			text-decoration: none;
+			text-indent: 0;
+			line-height: 15px;
+			cursor: pointer;
+			font-size: 12px;;
+		}
+		.file input {
+			position: absolute;
+			font-size: 100px;
+			right: 0;
+			top: 0;
+			opacity: 0;
+		}
+		.file:hover {
+			background: #fafafa;
+			border-color: #ebebeb;
+			color: #666;
+			text-decoration: none;
+			cursor: pointer;
+		}
+		.jcrop-iamge-button{width: 80px;margin-right:10px;height: 25px;color: #666;line-height: 25px;background: #fafafa;
+			border: 1px solid #ebebeb;
+			border-radius: 4px;}
+	</style>
+</head>
+<body>
+<div style="margin: 20px auto;width:100%;overflow: hidden;zoom:1;">
+	<div id="actions" style="float:left;display:none;margin-left: 15px;">
+		<button type="button" id="edit" class="jcrop-iamge-button">编辑</button>
+		<button type="button" id="crop" class="jcrop-iamge-button">确定</button>
+	</div>
+	<a href="javascript:;" class="file" style="float: right;margin-right: 15px;">选择图像
+		<input type="file" id="file-input" />
+	</a>
+</div>
+<div id="result" class="result">
+	<p></p>
+</div>
+<br>
+<script src="./jcrop/js/load-image.js"></script>
+<script src="./jcrop/js/load-image-orientation.js"></script>
+<script src="./jcrop/js/load-image-meta.js"></script>
+<script src="./jcrop/js/load-image-exif.js"></script>
+<script src="./jcrop/js/load-image-exif-map.js"></script>
+
+<script src="./jcrop/js/vendor/jquery.js"></script>
+<script src="./jcrop/js/vendor/jquery.Jcrop.js"></script>
+<script src="./jcrop/js/jcropImage.js"></script>
+
+</body>
+</html>
