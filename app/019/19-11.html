@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+    <title>DOM API Services</title>
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <script>
+        angular.module("exampleApp", [])
+                .controller("defaultCtrl", function ($scope) {
+                    $scope.throwEx = function () {
+                        throw new Error("Triggered Exception");
+                    }
+                });
+    </script>
+</head>
+<body ng-controller="defaultCtrl">
+<div class="panel panel-default">
+    <h4 class="panel-heading">URL</h4>
+
+    <div class="panel-body">
+        <button class="btn btn-primary" ng-click="throwEx()">Throw Exception</button>
+    </div>
+</div>
+</body>
+</html>
