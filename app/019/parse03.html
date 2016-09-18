@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DOM API Services</title>
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <style>
+        .ng-invalid {
+            border: 1px solid red;
+        }
+    </style>
+    <script>
+        angular.module("MyApp", [])
+                .controller("Cntl1", function ($scope) {
+                    $scope.name = 'World';
+                    $scope.greet = function() {
+                        ($window.mockWindow || $window).alert('Hello ' + $scope.name);
+                    }
+                })
+    </script>
+</head>
+<body ng-app="MyApp">
+<div class="example2" ng-controller="Cntl1">
+    Name: <input ng-model="name" type="text"/>
+    <button ng-click="greet()">Greet</button>
+</div>
+</body>
+</html>

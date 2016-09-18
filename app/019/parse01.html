@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DOM API Services</title>
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <script>
+        angular.module("MyApp", [])
+                .controller("MyController", function ($scope, $parse) {
+                    var context = {
+                        name: "dreamapple"
+                    };
+                    // 因为这个解析的语句中含有我们想要解析的表达式，
+                    // 所以要把不相关的用引号引起来，整体然后用+连接
+
+                    //expression:是我们想要解析的表达式
+                    //context:就是一个解析表达的上下文环境（个人理解）
+                    //parseFunc:就是解析以后返回的函数
+                    var expression = "'Hello ' + name";
+                    var parseFunc = $parse(expression);
+
+                    //false
+                    console.log(parseFunc.literal);
+                    //false
+                    console.log(parseFunc.constant);
+                    //undefined
+                    console.log(parseFunc.assign);
+                    //hello
+                    console.log(parseFunc());
+                    //function (self, locals) {
+                    //  return fn(self, locals, left, right);
+                    // }
+                    console.log(parseFunc);
+
+                    $scope.ParsedValue = parseFunc(context);
+                })
+    </script>
+</head>
+<body>
+<div ng-app="MyApp">
+    <div ng-controller="MyController">
+        <h1>{{ParsedValue}}</h1>
+    </div>
+</div>
+</body>
+</html>
