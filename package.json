@@ -1,0 +1,31 @@
+{
+  "name": "ng-demo",
+  "version": "1.0.0",
+  "description": "ng-demo",
+  "main": "angular-sanitize.js",
+  "dependencies": {
+    "connect": "^3.4.1",
+    "serve-static": "^1.10.2",
+    "async-each-series": "^1.1.0",
+    "connect-history-api-fallback": "^1.3.0",
+    "weinre": "^2.0.0-pre-I0Z7U9OV"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.16.0",
+    "gulp": "^3.9.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/henley02/ngDemo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/henley02/ngDemo/issues"
+  },
+  "homepage": "https://github.com/henley02/ngDemo#readme"
+}
