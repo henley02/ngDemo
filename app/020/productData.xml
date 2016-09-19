@@ -1,0 +1,13 @@
+<products>
+    <product name="Apples" category="Fruit" price="1.20" expiry="10"/>
+    <product name="Bananas" category="Fruit" price="2.44" expiry="7"/>
+    <product name="pears" category="Fruit" price="2.02" expiry="6"/>
+
+    <product name="Tuna" category="Fish" price="20.45" expiry="3"/>
+    <product name="Trout" category="Fish" price="17.93" expiry="2"/>
+    <product name="Apples" category="Fish" price="12.93" expiry="4"/>
+
+    <product name="beer" category="Drinks" price=" 2.99" expiry="365"/>
+    <product name="Wine" category="Drinks" price="8.99" expiry="365"/>
+    <product name="Whiskey" category="Drinks" price="45.99" expiry="365"/>
+</products>

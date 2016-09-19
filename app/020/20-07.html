@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax</title>
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <script>
+        angular.module("app", [])
+                .controller("defaultCtrl", function ($scope, $http) {
+                    $scope.loadData = function () {
+                        var config = {
+                            transformResponse: function (data, headers) {
+                                if (headers("content-type") == "application/xml" && angular.isString(data)) {
+                                   var products = [];
+                                    var productElems = angular.element(data.trim()).find("product");
+                                    for (var i = 0; i < productElems.length; i++) {
+                                        var product = productElems.eq(i);
+                                        products.push({
+                                            name: product.attr("name"),
+                                            category: product.attr("category"),
+                                            price: product.attr("price"),
+                                        })
+                                    }
+                                    return products;
+                                } else {
+                                    return data;
+                                }
+                            }
+                        }
+                        $http.get("productData.xml", config).success(function (data) {
+                            console.log(data);
+                            $scope.products = data;
+                        })
+                    }
+                })
+    </script>
+</head>
+<body ng-controller="defaultCtrl">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-hide="products.length">
+                <td colspan="3" class="text-center">No Data</td>
+            </tr>
+            <tr ng-repeat="item in products">
+                <td>{{item.name}}</td>
+                <td>{{item.category}}</td>
+                <td>{{item.price | currency}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <p>
+            <button class="btn bg-primary" ng-click="loadData()">Load Data</button>
+        </p>
+    </div>
+</div>
+</body>
+</html>

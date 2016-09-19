@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax</title>
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <script>
+        angular.module("app", [])
+                .controller("defaultCtrl", function ($scope, $http) {
+                    $scope.loadData = function () {
+                        $http.get("productData.json").success(function (data) {
+                            $scope.products = data;
+                        })
+                    }
+                    $scope.sendData = function () {
+                        var config = {
+                            headers: {
+                                "content-type": 'application/xml'
+                            },
+                            transformRequest: function (data, headers) {
+                                var rootElem = angular.element("<xml>");
+                                for (var i = 0; i < data.length; i++) {
+                                    var prodElem = angular.element("<product>");
+                                    prodElem.attr("name", data[i].name);
+                                    prodElem.attr("category", data[i].category);
+                                    prodElem.attr("price", data[i].price);
+                                    rootElem.append(prodElem);
+                                }
+                                rootElem.children().wrap("<products>");
+                                return rootElem.html();
+                            }
+                        }
+                        $http.post("ajax.xml", $scope.products, config);
+                    }
+                })
+    </script>
+</head>
+<body ng-controller="defaultCtrl">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-hide="products.length">
+                <td colspan="3" class="text-center">No Data</td>
+            </tr>
+            <tr ng-repeat="item in products">
+                <td>{{item.name}}</td>
+                <td>{{item.category}}</td>
+                <td>{{item.price | currency}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <p>
+            <button class="btn bg-primary" ng-click="loadData()">Load Data</button>
+            <button class="btn bg-primary" ng-click="sendData()">Load Data</button>
+        </p>
+    </div>
+</div>
+</body>
+</html>
