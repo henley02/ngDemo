@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax</title>
+    <script src="../../angular.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <script>
+        angular.module("app", [])
+                .controller("defaultCtrl", function ($scope) {
+                    $scope.displayMode = "list";
+                    $scope.currentProduct = "null";
+                    $scope.products = [
+                        {id: 0, name: "Dummy1", category: "Test", price: 1.25},
+                        {id: 1, name: "Dummy2", category: "Test", price: 2.45},
+                        {id: 2, name: "Dummy3", category: "Test", price: 4.25},
+                    ]
+                    $scope.deleteProduct = function (product) {
+                        $scope.products.splice($scope.products.indexOf(product), 1);
+                    }
+                    $scope.createProduct = function (product) {
+                        $scope.products.push(product);
+                        $scope.displayMode = "list";
+                        console.log($scope.products)
+                    }
+                    $scope.updateProduct = function (product) {
+                        for (var i = 0; i < $scope.products.length; i++) {
+                            if ($scope.products[i].id == product.id) {
+                                $scope.products[i] = product;
+                                break;
+                            }
+                        }
+                        $scope.displayMode = "list";
+                    }
+                    $scope.editOrCreateProduct = function (product) {
+                        $scope.currentProduct = product ? angular.copy(product) : {};
+                        $scope.displayMode = "edit";
+                    }
+                    $scope.saveEdit = function (product) {
+                        if (angular.isDefined(product.id)) {
+                            $scope.updateProduct(product);
+                        } else {
+                            $scope.createProduct(product);
+                        }
+                    }
+                    $scope.cancelEdit = function () {
+                        $scope.currentProduct = {};
+                        $scope.displayMode = "list";
+                    }
+                    $scope.listProducts = function () {
+
+                    };
+                })
+    </script>
+</head>
+<body ng-controller="defaultCtrl">
+<div class="panel panel-primary">
+    <h3 class="panel-heading">Products</h3>
+    <ng-include src="'tableView.html'" ng-show="displayMode=='list'"></ng-include>
+    <ng-include src="'editorView.html'" ng-show="displayMode=='edit'"></ng-include>
+</div>
+</body>
+</html>
